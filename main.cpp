@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    //只需要在这里修改数据文件地址和ip就行
     trans_txt("/home/ganyd/Projects/udp_origin_content.txt",
               static_cast<QHostAddress>("192.168.1.100"));
 
