@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
     //只需要在这里修改数据文件地址和ip就行
     trans_txt("/home/ganyd/Projects/udp_origin_content.txt",
-              static_cast<QHostAddress>("192.168.1.100"));
+              static_cast<QHostAddress>("192.168.1.103"));
 
     return a.exec();
 }
@@ -33,7 +33,7 @@ void trans_txt(std::string txt_path, QHostAddress ip_) //默认端口3000
     QUdpSocket socket;
     int send_count = 0; //发送次数计数
 
-    char buff[2014];
+    unsigned char buff[2014];
     int count_amessage_len = 0;
     while(1)
     {
@@ -46,7 +46,7 @@ void trans_txt(std::string txt_path, QHostAddress ip_) //默认端口3000
 
         txt >> buff[count_amessage_len]; //读一个字节
         count_amessage_len++;
-        if (buff[count_amessage_len] == '\0' && count_amessage_len > 72){
+        if (buff[0] == 0xE7 && buff[count_amessage_len] == '\0' && count_amessage_len > 72){
             //报文内容
             QByteArray send_data;
             send_data = QByteArray(buff, 72);
